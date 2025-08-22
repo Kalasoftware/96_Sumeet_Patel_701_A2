@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Employee Management System</h1>
+    
+    <a href="/add-employee">Add New Employee</a> | 
+    <form action="/logout" method="POST" style="display: inline;">
+        <input type="submit" value="Logout">
+    </form>
+    
+    <h2>Employees List</h2>
+    <table border="1">
+        <tr>
+            <th>Emp ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Basic Salary</th>
+            <th>Allowances</th>
+            <th>Deductions</th>
+            <th>Net Salary</th>
+            <th>Actions</th>
+        </tr>
+        <% employees.forEach(emp => { %>
+        <tr>
+            <td><%= emp.empId %></td>
+            <td><%= emp.name %></td>
+            <td><%= emp.email %></td>
+            <td><%= emp.basicSalary %></td>
+            <td><%= emp.allowances %></td>
+            <td><%= emp.deductions %></td>
+            <td><%= emp.netSalary %></td>
+            <td>
+                <a href="/edit-employee/<%= emp._id %>">Edit</a> |
+                <form action="/delete-employee/<%= emp._id %>" method="POST" style="display: inline;">
+                    <input type="submit" value="Delete" onclick="return confirm('Are you sure?')">
+                </form>
+            </td>
+        </tr>
+        <% }); %>
+    </table>
+</body>
+</html>

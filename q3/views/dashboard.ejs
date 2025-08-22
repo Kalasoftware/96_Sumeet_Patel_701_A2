@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - Redis Session</title>
+</head>
+<body>
+    <h1>Welcome, <%= user.username %>!</h1>
+    
+    <p>You are successfully logged in with Redis session store.</p>
+    
+    <form action="/logout" method="POST">
+        <input type="submit" value="Logout">
+    </form>
+</body>
+</html>

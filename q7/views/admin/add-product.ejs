@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Product</title>
+</head>
+<body>
+    <h1>Add Product</h1>
+    
+    <% if (error) { %>
+        <div style="color: red;"><%= error %></div>
+    <% } %>
+    
+    <form action="/admin/add-product" method="POST">
+        <table>
+            <tr>
+                <td>Product Name:</td>
+                <td><input type="text" name="name" required></td>
+            </tr>
+            <tr>
+                <td>Price:</td>
+                <td><input type="number" name="price" step="0.01" required></td>
+            </tr>
+            <tr>
+                <td>Category:</td>
+                <td>
+                    <select name="categoryId" required>
+                        <option value="">Select Category</option>
+                        <% categories.forEach(category => { %>
+                            <option value="<%= category._id %>"><%= category.name %></option>
+                        <% }); %>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Stock:</td>
+                <td><input type="number" name="stock" value="0" required></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Add Product">
+                    <a href="/admin/dashboard">Cancel</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Success</title>
+</head>
+<body>
+    <h1>Registration Successful</h1>
+    
+    <table border="1">
+        <tr>
+            <th>Field</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Username</td>
+            <td><%= userData.username %></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><%= userData.email %></td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td><%= userData.gender %></td>
+        </tr>
+        <tr>
+            <td>Hobbies</td>
+            <td><%= Array.isArray(userData.hobbies) ? userData.hobbies.join(', ') : userData.hobbies %></td>
+        </tr>
+        <% if (userData.profilePic) { %>
+        <tr>
+            <td>Profile Picture</td>
+            <td>
+                <img src="/uploads/<%= userData.profilePic.filename %>" width="100" height="100">
+                <br>
+                <a href="/download/<%= userData.profilePic.filename %>">Download</a>
+            </td>
+        </tr>
+        <% } %>
+        <% if (userData.otherPics && userData.otherPics.length > 0) { %>
+        <tr>
+            <td>Other Pictures</td>
+            <td>
+                <% userData.otherPics.forEach(pic => { %>
+                    <img src="/uploads/<%= pic.filename %>" width="100" height="100">
+                    <a href="/download/<%= pic.filename %>">Download</a><br>
+                <% }); %>
+            </td>
+        </tr>
+        <% } %>
+    </table>
+    
+    <br>
+    <a href="/">Register Another User</a>
+</body>
+</html>

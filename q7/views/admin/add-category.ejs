@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Category</title>
+</head>
+<body>
+    <h1>Add Category</h1>
+    
+    <% if (error) { %>
+        <div style="color: red;"><%= error %></div>
+    <% } %>
+    
+    <form action="/admin/add-category" method="POST">
+        <table>
+            <tr>
+                <td>Category Name:</td>
+                <td><input type="text" name="name" required></td>
+            </tr>
+            <tr>
+                <td>Parent Category:</td>
+                <td>
+                    <select name="parentId">
+                        <option value="">Main Category</option>
+                        <% parentCategories.forEach(category => { %>
+                            <option value="<%= category._id %>"><%= category.name %></option>
+                        <% }); %>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Add Category">
+                    <a href="/admin/dashboard">Cancel</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

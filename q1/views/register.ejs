@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Registration</title>
+</head>
+<body>
+    <h1>User Registration Form</h1>
+    
+    <% if (errors.length > 0) { %>
+        <div style="color: red;">
+            <h3>Errors:</h3>
+            <ul>
+                <% errors.forEach(error => { %>
+                    <li><%= error.msg %></li>
+                <% }); %>
+            </ul>
+        </div>
+    <% } %>
+
+    <form action="/register" method="POST" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td>Username:</td>
+                <td><input type="text" name="username" value="<%= formData.username || '' %>" required></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" name="password" required></td>
+            </tr>
+            <tr>
+                <td>Confirm Password:</td>
+                <td><input type="password" name="confirmPassword" required></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><input type="email" name="email" value="<%= formData.email || '' %>" required></td>
+            </tr>
+            <tr>
+                <td>Gender:</td>
+                <td>
+                    <input type="radio" name="gender" value="male" <%= formData.gender === 'male' ? 'checked' : '' %>> Male
+                    <input type="radio" name="gender" value="female" <%= formData.gender === 'female' ? 'checked' : '' %>> Female
+                </td>
+            </tr>
+            <tr>
+                <td>Hobbies:</td>
+                <td>
+                    <input type="checkbox" name="hobbies" value="reading" <%= formData.hobbies && formData.hobbies.includes('reading') ? 'checked' : '' %>> Reading
+                    <input type="checkbox" name="hobbies" value="sports" <%= formData.hobbies && formData.hobbies.includes('sports') ? 'checked' : '' %>> Sports
+                    <input type="checkbox" name="hobbies" value="music" <%= formData.hobbies && formData.hobbies.includes('music') ? 'checked' : '' %>> Music
+                </td>
+            </tr>
+            <tr>
+                <td>Profile Picture:</td>
+                <td><input type="file" name="profilePic" accept="image/*"></td>
+            </tr>
+            <tr>
+                <td>Other Pictures:</td>
+                <td><input type="file" name="otherPics" accept="image/*" multiple></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Register"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

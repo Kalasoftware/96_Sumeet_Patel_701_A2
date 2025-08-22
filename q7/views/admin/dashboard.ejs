@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    
+    <a href="/admin/add-category">Add Category</a> | 
+    <a href="/admin/add-product">Add Product</a> | 
+    <form action="/admin/logout" method="POST" style="display: inline;">
+        <input type="submit" value="Logout">
+    </form>
+    
+    <h2>Categories</h2>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Parent Category</th>
+        </tr>
+        <% categories.forEach(category => { %>
+        <tr>
+            <td><%= category.name %></td>
+            <td><%= category.parentId ? category.parentId.name : 'Main Category' %></td>
+        </tr>
+        <% }); %>
+    </table>
+    
+    <h2>Products</h2>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+        </tr>
+        <% products.forEach(product => { %>
+        <tr>
+            <td><%= product.name %></td>
+            <td><%= product.categoryId.name %></td>
+            <td>$<%= product.price %></td>
+            <td><%= product.stock %></td>
+        </tr>
+        <% }); %>
+    </table>
+</body>
+</html>

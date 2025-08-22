@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Profile</title>
+</head>
+<body>
+    <h1>Employee Profile</h1>
+    
+    <div id="profile"></div>
+    
+    <br>
+    <a href="leave.html">Apply for Leave</a> | 
+    <button onclick="logout()">Logout</button>
+
+    <script>
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'login.html';
+        }
+
+        async function loadProfile() {
+            try {
+                const response = await fetch('/api/profile', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                const employee = await response.json();
+                
+                document.getElementById('profile').innerHTML = `
+                    <table border="1">
+                        <tr><td>Employee ID</td><td>${employee.empId}</td></tr>
+                        <tr><td>Name</td><td>${employee.name}</td></tr>
+                        <tr><td>Email</td><td>${employee.email}</td></tr>
+                        <tr><td>Basic Salary</td><td>${employee.basicSalary}</td></tr>
+                        <tr><td>Allowances</td><td>${employee.allowances}</td></tr>
+                        <tr><td>Deductions</td><td>${employee.deductions}</td></tr>
+                        <tr><td>Net Salary</td><td>${employee.netSalary}</td></tr>
+                    </table>
+                `;
+            } catch (error) {
+                console.error('Error loading profile:', error);
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('employee');
+            window.location.href = 'login.html';
+        }
+
+        loadProfile();
+    </script>
+</body>
+</html>

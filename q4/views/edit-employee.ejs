@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Employee</title>
+</head>
+<body>
+    <h1>Edit Employee</h1>
+    
+    <% if (error) { %>
+        <div style="color: red;"><%= error %></div>
+    <% } %>
+    
+    <form action="/edit-employee/<%= employee._id %>" method="POST">
+        <table>
+            <tr>
+                <td>Employee ID:</td>
+                <td><%= employee.empId %> (Read Only)</td>
+            </tr>
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" name="name" value="<%= employee.name %>" required></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><input type="email" name="email" value="<%= employee.email %>" required></td>
+            </tr>
+            <tr>
+                <td>Basic Salary:</td>
+                <td><input type="number" name="basicSalary" value="<%= employee.basicSalary %>" required></td>
+            </tr>
+            <tr>
+                <td>Allowances:</td>
+                <td><input type="number" name="allowances" value="<%= employee.allowances %>"></td>
+            </tr>
+            <tr>
+                <td>Deductions:</td>
+                <td><input type="number" name="deductions" value="<%= employee.deductions %>"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Update Employee">
+                    <a href="/dashboard">Cancel</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

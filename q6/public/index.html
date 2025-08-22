@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather & Cat Facts API</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .api-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        button { padding: 8px 15px; margin: 5px; cursor: pointer; }
+        .result { margin: 10px 0; padding: 10px; background: #f5f5f5; min-height: 20px; }
+        input { padding: 5px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Weather & Cat Facts API</h1>
+    
+    <div class="api-section">
+        <h2>Weather Information</h2>
+        <input type="text" id="cityInput" placeholder="Enter city name" value="London">
+        <button onclick="getWeather()">Get Weather</button>
+        <div id="weather" class="result"></div>
+    </div>
+    
+    <div class="api-section">
+        <h2>Cat Facts</h2>
+        <button onclick="getCatFact()">Get Random Cat Fact</button>
+        <div id="catfact" class="result"></div>
+    </div>
+
+    <script>
+        async function getWeather() {
+            try {
+                const city = document.getElementById('cityInput').value || 'London';
+                const response = await fetch(`/api/weather/${city}`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    document.getElementById('weather').innerHTML = `
+                        <h3>🌤️ ${data.name}, ${data.sys.country}</h3>
+                        <p><strong>Temperature:</strong> ${data.main.temp}°C (Feels like ${data.main.feels_like}°C)</p>
+                        <p><strong>Weather:</strong> ${data.weather[0].description}</p>
+                        <p><strong>Humidity:</strong> ${data.main.humidity}%</p>
+                        <p><strong>Wind Speed:</strong> ${data.wind.speed} m/s</p>
+                        <p><strong>Pressure:</strong> ${data.main.pressure} hPa</p>
+                    `;
+                } else {
+                    document.getElementById('weather').innerHTML = `<p>❌ ${data.error}</p>`;
+                }
+            } catch (error) {
+                document.getElementById('weather').innerHTML = '❌ Error loading weather data';
+            }
+        }
+
+        async function getCatFact() {
+            try {
+                const response = await fetch('/api/catfact');
+                const data = await response.json();
+                document.getElementById('catfact').innerHTML = `<p>🐱 ${data.fact}</p>`;
+            } catch (error) {
+                document.getElementById('catfact').innerHTML = '❌ Error loading cat fact';
+            }
+        }
+
+        // Load initial content
+        window.onload = function() {
+            getWeather();
+            getCatFact();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shopping Cart - Home</title>
+</head>
+<body>
+    <h1>Shopping Cart System</h1>
+    
+    <a href="/cart">View Cart (<%= cart.length %> items)</a>
+    
+    <h2>Categories</h2>
+    <ul>
+        <% categories.forEach(category => { %>
+            <li><%= category.name %></li>
+        <% }); %>
+    </ul>
+    
+    <h2>Products</h2>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Action</th>
+        </tr>
+        <% products.forEach(product => { %>
+        <tr>
+            <td><%= product.name %></td>
+            <td><%= product.categoryId.name %></td>
+            <td>$<%= product.price %></td>
+            <td><%= product.stock %></td>
+            <td>
+                <% if (product.stock > 0) { %>
+                    <form action="/add-to-cart/<%= product._id %>" method="POST" style="display: inline;">
+                        <input type="submit" value="Add to Cart">
+                    </form>
+                <% } else { %>
+                    Out of Stock
+                <% } %>
+            </td>
+        </tr>
+        <% }); %>
+    </table>
+    
+    <br>
+    <a href="/admin/login">Admin Login</a>
+</body>
+</html>
